@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.canway.ap.demo.mybatis.dao.UserDao">
+
+    <resultMap id="userMap" type="net.canway.ap.demo.mybatis.entity.User">
+        <id column="ID_" property="id"/>
+        <result column="NAME_" property="name"/>
+        <result column="SEX_" property="sex"/>
+        <!--<result column="CLASSES_ID" property="classesId"/>-->
+
+        <!-- 多对一映射
+         property：是多方的实体字段名称
+         javaType：是多方的实体字段对于的java类全路径
+         -->
+        <association property="classes" javaType="net.canway.ap.demo.mybatis.entity.Classes">
+            <id column="ID" property="id"/>
+            <result column="NAME" property="name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="userJoinClasses" type="net.canway.ap.demo.mybatis.entity.User1">
+        <id column="ID_" property="id"/>
+        <result column="NAME_" property="name"/>
+        <result column="SEX_" property="sex"/>
+        <result column="CLASSES_NAME" property="classesName"/>
+    </resultMap>
+
+
+    <!--<select id="findAll1" resultMap="userJoinClasses">
+        SELECT u.*,c.NAME CLASSES_NAME FROM USER_ u, CLASSES_ c WHERE u.CLASSES_ID = c.ID
+
+    </select>-->
+
+    <select id="findAll" resultMap="userMap">
+        SELECT * FROM USER_ u, CLASSES_ c WHERE u.CLASSES_ID = c.ID
+    </select>
+
+    <select id="findOne" resultMap="userMap">
+        SELECT * FROM USER_ where ID_ = #{id} and NAME_ = #{name}
+    </select>
+
+</mapper>

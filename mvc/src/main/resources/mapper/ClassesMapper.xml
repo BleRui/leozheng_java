@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.canway.demo.mvc.dao.ClassesDao">
+
+    <resultMap id="userMap" type="net.canway.demo.mvc.entity.Classes">
+        <id column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+    </resultMap>
+
+
+    <select id="findOne" resultMap="userMap">
+        SELECT * FROM CLASSES_ where ID = #{id}
+    </select>
+
+    <insert id="add">
+
+        insert into CLASSES_ values (#{id},#{name})
+
+    </insert>
+
+</mapper>
